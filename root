@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Dumpu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:#0f0f0f;color:white;text-align:center;overflow-x:hidden;}
+.section{display:none;min-height:100vh;padding:40px 20px;}
+.active{display:block;}
+
+.envelope{
+  width:220px;height:140px;background:#ff4d6d;
+  margin:160px auto;border-radius:10px;cursor:pointer;position:relative;
+}
+.envelope:before{
+  content:"";position:absolute;top:0;left:0;width:100%;height:100%;
+  background:#ff758f;clip-path:polygon(0 0,100% 0,50% 55%);
+}
+
+h1{margin-bottom:20px;}
+.reason{font-size:1.15rem;margin:18px 0;animation:fade 1s ease;}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.tv{
+  width:300px;margin:auto;border:8px solid #555;
+  background:black;padding:8px;border-radius:6px;
+}
+.tv img{width:100%;animation:zoom 4s linear infinite;}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.1)}}
+
+button{
+  padding:12px 28px;font-size:1rem;border:none;
+  border-radius:25px;cursor:pointer;
+}
+.yes{background:#ff4d6d;color:white;}
+.no{background:#444;color:white;position:absolute;}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" src="audio/bgmusic.mp3" loop></audio>
+
+<!-- Envelope -->
+<div class="section active" id="envelope">
+  <div class="envelope" onclick="openEnvelope()"></div>
+  <p>Tap to open 💌</p>
+</div>
+
+<!-- Reasons -->
+<div class="section" id="reasons">
+  <h1>8 Reasons Why I Love You ❤️</h1>
+  <div class="reason">Because with you, even silence feels comforting.</div>
+  <div class="reason">Your smile fixes days you don’t know were broken.</div>
+  <div class="reason">You care deeply — even when you hide it.</div>
+  <div class="reason">You believe in me more than I believe in myself.</div>
+  <div class="reason">You feel like home, not pressure.</div>
+  <div class="reason">Loving you feels natural.</div>
+  <div class="reason">You make ordinary moments unforgettable.</div>
+  <div class="reason">You became my favorite person.</div>
+  <br>
+  <button class="yes" onclick="next('photos')">Next 💖</button>
+</div>
+
+<!-- Photos -->
+<div class="section" id="photos">
+  <h1>Our Memories 📺</h1>
+  <div class="tv">
+    <img id="slide" src="images/photo1.jpg">
+  </div>
+  <br>
+  <button class="yes" onclick="next('question')">Continue ❤️</button>
+</div>
+
+<!-- Question -->
+<div class="section" id="question">
+  <h1>Will you be my Valentine? 💕</h1>
+  <button class="yes" onclick="next('yes')">Yes ❤️</button>
+  <button class="no" id="noBtn">No 🙈</button>
+</div>
+
+<!-- Yes -->
+<div class="section" id="yes">
+  <h1>I knew it ❤️</h1>
+  <p>Thank you for choosing me.</p>
+  <p>I promise to choose you — always.</p>
+  <br>
+  <h3>– Yours, Chaitanya 💖</h3>
+</div>
+
+<script>
+const sections=document.querySelectorAll('.section');
+function next(id){
+  sections.forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function openEnvelope(){
+  let bg=document.getElementById('bgMusic');
+  bg.volume=0.25;
+  bg.play();
+  next('reasons');
+}
+
+// Slideshow
+let photos=[
+"images/photo1.jpg",
+"images/photo2.jpg",
+"images/photo3.jpg",
+"images/photo4.jpg",
+"images/photo5.jpg",
+"images/photo6.jpg"
+];
+let i=0;
+setInterval(()=>{
+  let img=document.getElementById("slide");
+  if(img){
+    i=(i+1)%photos.length;
+    img.src=photos[i];
+  }
+},3000);
+
+// NO button escape
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.top=Math.random()*window.innerHeight+"px";
+  noBtn.style.left=Math.random()*window.innerWidth+"px";
+});
+</script>
+
+</body>
+</html>
